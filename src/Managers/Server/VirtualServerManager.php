@@ -163,9 +163,11 @@ class VirtualServerManager extends BaseManager implements VirtualServerManagerIn
             $data[0]->values = (object)$values;
         }
         if ($type === ServerTypes::TOP_LEVEL_SERVER) {
-            return new Server($data[0]);
+            // return new Server($data[0]);
+            return $data[0];
         } else if ($type === ServerTypes::SUB_SERVER) {
-            return new SubServer($data[0]);
+            // return new SubServer($data[0]);
+            return $data[0];
         } else {
             throw new UnknownVirtualServerTypeException("Unknown server type : {$type}");
         }
