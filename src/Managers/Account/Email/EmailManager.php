@@ -73,7 +73,7 @@ class EmailManager extends BaseManager implements EmailManagerInterface {
      */
     public function deleteEmailAccount(string $domain, string $username) : bool {
         $handler = new AccountModifier($this->httpClient,$domain, $username);
-        return $handler->deleteAccount($domain, $username);
+        return $handler->deleteAccount($this->httpClient,$domain, $username);
     }
 
     /**
@@ -86,7 +86,7 @@ class EmailManager extends BaseManager implements EmailManagerInterface {
      */
     public function disableEmailAccount(string $domain, string $username) : bool {
         $handler = new AccountModifier($this->httpClient, $domain, $username);
-        return $handler->disableAccount($domain, $username, "email");
+        return $handler->disableAccount($this->httpClient,$domain, $username, "email");
     }
 
     /**
@@ -99,7 +99,7 @@ class EmailManager extends BaseManager implements EmailManagerInterface {
      */
     public function enableEmailAccount(string $domain, string $username) : bool {
         $handler = new AccountModifier($this->httpClient, $domain, $username);
-        return $handler->enableAccount($domain, $username, "email");
+        return $handler->enableAccount($this->httpClient,$domain, $username, "email");
     }
 
     /**
