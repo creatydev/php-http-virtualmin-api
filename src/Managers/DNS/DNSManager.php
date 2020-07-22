@@ -12,14 +12,16 @@ use Nilet\Components\Configuration\Config;
 class DNSManager extends BaseManager implements DNSManagerInterface {
 
     private $dnsRecordTypes = [
-        DNSRecordTypes::A => "A - IPv4 Address",
-        DNSRecordTypes::AAAA => "AAAA - IPv6 Address",
-        DNSRecordTypes::CNAME => "CNAME - Name Alias",
+        // DNSRecordTypes::A => "A - IPv4 Address",
+        // DNSRecordTypes::AAAA => "AAAA - IPv6 Address",
+        // DNSRecordTypes::CNAME => "CNAME - Name Alias",
         DNSRecordTypes::MX => "MX - Mail Server",
         DNSRecordTypes::NS => "NS - Name Server",
-        DNSRecordTypes::PTR => "PTR - Reverse Address",
+        // DNSRecordTypes::PTR => "PTR - Reverse Address",
         DNSRecordTypes::SRV => "SRV - Service record",
-        DNSRecordTypes::TXT => "TXT - Text"
+        DNSRecordTypes::TXT => "TXT - Text",
+        DNSRecordTypes::SPF => "SPF - Text",
+        DNSRecordTypes::DKIM => "DKIM - Text"
     ];
 
     /**
@@ -149,8 +151,9 @@ class DNSManager extends BaseManager implements DNSManagerInterface {
         foreach ($dnsRecords as $record) {
             if (isset($this->dnsRecordTypes[$record->values->type[0]]) && !$this->isDKIMRecord($record)) {
                 $value = trim(implode(" ", $record->values->value));
-                $ttl = $this->processTtl($record->values->ttl[0]);
-                $filteredRecords[] = new DNSRecord($record->name, $record->values->type[0], $value, $ttl["value"], $ttl["unit"]);
+                // $ttl = $this->processTtl($record->values->ttl[0]);
+                // $filteredRecords[] = new DNSRecord($record->name, $record->values->type[0], $value, $ttl["value"], $ttl["unit"]);
+                $filteredRecords[] = new DNSRecord($record->name, $record->values->type[0], $value);
             }
         }
         return $filteredRecords;
