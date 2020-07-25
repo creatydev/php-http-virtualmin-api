@@ -5,6 +5,7 @@ use Nilemin\Virtualmin\Http\HttpClient;
 use Nilemin\Virtualmin\Http\HttpClientInterface;
 use Nilemin\Virtualmin\Managers\BaseManager;
 use Nilet\Components\Configuration\Config;
+use Nilemin\Virtualmin\Managers\DNS\DNSRecord;
 
 /**
  * @author Tsvetelin Tsonev <github.tsonev@yahoo.com>
@@ -122,6 +123,7 @@ class DNSManager extends BaseManager implements DNSManagerInterface {
         $this->httpClient->queryStringBuilder()->addParameter("multiline");
 
         $this->httpClient->sendRequest();
+        // return $this->httpClient->getResponseMessage()->data;
         return $this->filterDNSRecords($this->httpClient->getResponseMessage()->data);
     }
 
@@ -140,6 +142,8 @@ class DNSManager extends BaseManager implements DNSManagerInterface {
         return $this->filterSPFOptions($this->httpClient->getResponseMessage()->data);
     }
 
+    
+
     /**
      * Filters DNS records. Remove NSEC, DNSSEC, DNSKEY, RRSIG etc.
      *
@@ -149,10 +153,11 @@ class DNSManager extends BaseManager implements DNSManagerInterface {
     private function filterDNSRecords(array $dnsRecords) : array {
         $filteredRecords = [];
         foreach ($dnsRecords as $record) {
-            if (isset($this->dnsRecordTypes[$record->values->type[0]]) && !$this->isDKIMRecord($record)) {
+            if (isset($this->dnsRecordTypes[$record->values->type[0]])) {
                 $value = trim(implode(" ", $record->values->value));
                 // $ttl = $this->processTtl($record->values->ttl[0]);
                 // $filteredRecords[] = new DNSRecord($record->name, $record->values->type[0], $value, $ttl["value"], $ttl["unit"]);
+                // $ttl = $this->processTtl($record->values->ttl[0]);
                 $filteredRecords[] = new DNSRecord($record->name, $record->values->type[0], $value);
             }
         }
