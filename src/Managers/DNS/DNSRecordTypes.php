@@ -45,4 +45,14 @@ class DNSRecordTypes {
      * Service Record
      */
     const SRV = "SRV";
+    
+    /**
+     * Service Record
+     */
+    const SPF = "SPF";
+
+    /**
+     * Service Record
+     */
+    const DKIM = "DKIM";
 }
