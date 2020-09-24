@@ -45,7 +45,6 @@ class DNSRecordTypes {
      * Service Record
      */
     const SRV = "SRV";
-    
     /**
      * Service Record
      */
