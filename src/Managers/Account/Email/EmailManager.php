@@ -127,4 +127,35 @@ class EmailManager extends BaseManager implements EmailManagerInterface {
         }
         return $emailAccounts;
     }
+
+    /**
+     * Update email account.
+     *
+     * @param string   $domain
+     * @param string   $username
+     * @param string   $password
+     * @param string   $realname
+     * @param int|null $quota Disk quota for the email account in MB.
+     *
+     * @return bool TRUE on success, FALSE otherwise
+     */
+    public function updateEmailAccount(string $domain, string $username, string $newusername = null, string $password = null, string $realname = null, int $quota = null) : bool {
+        $this->httpClient->queryStringBuilder()->addParameter("program", "modify-user");
+        $this->httpClient->queryStringBuilder()->addParameter("domain", $domain);
+        $this->httpClient->queryStringBuilder()->addParameter("user", $username);
+        if ($quota !== null) {
+            $quota *= 1000;
+            $this->httpClient->queryStringBuilder()->addParameter("quota", $quota);
+        }
+        if ($password !== null) {
+            $this->httpClient->queryStringBuilder()->addParameter("pass", $password);
+        }
+        if ($newusername !== null) {
+            $this->httpClient->queryStringBuilder()->addParameter("newuser", $newusername);
+        }
+        if ($realname !== null) {
+            $this->httpClient->queryStringBuilder()->addParameter("real", $realname);
+        }
+        return $this->httpClient->sendRequest();
+    }
 }

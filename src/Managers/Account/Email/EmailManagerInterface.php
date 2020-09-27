@@ -30,6 +30,19 @@ interface EmailManagerInterface {
      */
     public function changeEmailAccountQuota(string $domain, string $username, int $quota) : bool;
 
+     /**
+     * Upate email account.
+     *
+     * @param string $domain
+     * @param string $username
+     * @param int|null $quota
+     * @param string $password
+     * @param string $realname
+     *
+     * @return bool TRUE on success, FALSE otherwise
+     */
+    public function updateEmailAccount(string $domain,string $username, string $newusername = null, string $password = null, string $realname = null, int $quota = null) : bool ;
+
     /**
      * Deletes email account.
      *

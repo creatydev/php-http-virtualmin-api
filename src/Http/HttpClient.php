@@ -92,7 +92,7 @@ class HttpClient implements HttpClientInterface {
      * Sends request to Virtualmin's remote api.
      * @return bool TRUE on success, FALSE otherwise.
      */
-    public function sendRequest() : bool {
+    public function sendRequest(): bool {
         $this->dispatch();
         return $this->processResponse();
     }
@@ -108,7 +108,7 @@ class HttpClient implements HttpClientInterface {
 
     private function processResponse() {
         $this->responseMessage = json_decode($this->response->getBody()->getContents());
-
+        //return $this->responseMessage;
         if ($this->responseMessage->status == "success") 
             return true;
         

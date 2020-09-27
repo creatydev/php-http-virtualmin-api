@@ -1,5 +1,5 @@
 <?php
-namespace Nilemin\Virtualmin\DNS;
+namespace Nilemin\Virtualmin\Managers\DNS;
 
 /**
  * @author Tsvetelin Tsonev <github.tsonev@yahoo.com>
