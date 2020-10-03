@@ -68,6 +68,8 @@ class VirtualServerManager extends BaseManager implements VirtualServerManagerIn
         $this->httpClient->queryStringBuilder()->addParameter("parent", $parentDomain);
         $this->httpClient->queryStringBuilder()->addParameter("dir");
         $this->httpClient->queryStringBuilder()->addParameter("web");
+        $this->httpClient->queryStringBuilder()->addParameter("ssl");
+        $this->httpClient->queryStringBuilder()->addParameter("template", "forwebMail");
         foreach ($options as $key => $value) {
             if (is_numeric($key)) {
                 $this->httpClient->queryStringBuilder()->addParameter($value);
